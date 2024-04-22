@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">QR Code Generator</h1>
+        <div id="qrForm">
+            <label for="url">Enter URL:</label>
+            <input type="text" id="url" class="form-control" required>
+            <button onclick="generateQR()" class="btn btn-primary mt-2">Generate QR Code</button>
+        </div>
+        <div id="qrGenerated" style="display: none;">
+            <h2 class="mt-4">QR Code Generated</h2>
+            <img id="qrImage" alt="QR Code" class="img-fluid mb-3">
+            <button onclick="showURLForm()" class="btn btn-secondary">Enter Another URL</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        function generateQR() {
+            var url = document.getElementById('url').value;
+            var qr = new QRious({
+                value: url,
+                size: 300
+            });
+            document.getElementById('qrImage').src = qr.toDataURL();
+            document.getElementById('qrForm').style.display = 'none';
+            document.getElementById('qrGenerated').style.display = 'block';
+        }
+
+        function showURLForm() {
+            document.getElementById('url').value = '';
+            document.getElementById('qrForm').style.display = 'block';
+            document.getElementById('qrGenerated').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
